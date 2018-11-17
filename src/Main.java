@@ -118,8 +118,9 @@ class Node {
         }
     }
 
+    //change of base log_a(b) = log(b) / log(a)
     private void calcHalpha(double alpha) {
-        this.halpha = (int) (Math.floor(this.size) / Math.floor(1.0 / alpha));
+        this.halpha = (int) Math.floor(Math.log((double) this.size) / Math.log(1.0 / alpha));
     }
 
     private void calcSize() {
