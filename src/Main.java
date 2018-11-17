@@ -9,7 +9,7 @@ public class Main {
         Tree tree = null;
         String file;
         if (args.length >= 1) file = args[0];
-        else file = "tree.txt";
+        else file = "/Users/johnkarasev/IdeaProjects/scapegoat-tree/src/tree.txt";
         Scanner scan;
         try {
             scan = new Scanner(new File(file));
@@ -137,7 +137,7 @@ class Node {
 
     public void update(double alpha) {
         this.updateNode(alpha);
-        if (this.parent != null) update(alpha);
+        if (this.parent != null) this.parent.update(alpha);
     }
 
 
@@ -252,11 +252,12 @@ class Node {
     }
 
     public void print(int level) {
-        if (this.left != null) this.left.print(level + 1);
-        System.out.println();
-        for(int i = level; i > 0; i--) System.out.print("\t");
-        System.out.print(this.key);
         if (this.right != null) this.right.print(level + 1);
+        System.out.println();
+        for(int i = level; i >= 0; i--) System.out.print("\t");
+        System.out.print(this.key);
+        System.out.flush();
+        if (this.left != null) this.left.print(level + 1);
     }
 }
 
@@ -266,6 +267,7 @@ class Tree {
     private int maxSize;
 
     Tree(int key, double alpha) {
+        this.alpha = alpha;
         this.root = new Node(key);
     }
 
@@ -300,7 +302,10 @@ class Tree {
 
     //TODO check if brother needs to be set.
     private Node buildTree(int n, Node x) {
-        if (n == 0) return (x.left = null);
+        if (n == 0) {
+            x.left = null;
+            return x;
+        }
         Node r = this.buildTree((int) (Math.floor(((double) (n - 1)) / 2.0)), x);
         Node s = this.buildTree((int) (Math.ceil(((double) (n - 1)) / 2.0)), r.right);
         r.right = s.left;
@@ -335,6 +340,7 @@ class Tree {
 
     public void print() {
         this.root.print(0);
+        System.out.println();
     }
 
 
