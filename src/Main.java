@@ -271,6 +271,7 @@ class Tree {
         this.root = new Node(key);
         this.root.parent = this.root.left = this.root.right = null;
         this.root.update(this.alpha);
+        this.maxSize = 1;
     }
 
     public void insert(int key) {
@@ -283,6 +284,7 @@ class Tree {
         else {
             this.root = newkey;
             this.root.parent = this.root.left = this.root.right = null;
+            this.maxSize = 1;
             this.root.update(this.alpha);
         }
         /* check if the new node is a deep node. If a deep node, rebuild the tree. */
@@ -371,11 +373,18 @@ class Tree {
     }
 
     public boolean delete(int key) {
+        /* if tree is empty return false */
         if (this.root == null) return false;
+        /* if key is not found, return false */
         if (!this.root.delete(key, this.alpha)) return false;
+        /* if the deleted key is the root, set root to null (only is true when the last key is deleted. */
         if (this.root.key == key) this.root = null;
+        /* check for the rebuild condition. */
         if (this.root != null && this.root.size < (this.maxSize * this.alpha)) {
             this.root = rebuildTree(this.root.size, this.root);
+            /* Get rid of the dummy pointer */
+            this.root.parent = null;
+            /* reset maxsize */
             this.maxSize = this.root.size;
         }
         return true;
@@ -390,7 +399,5 @@ class Tree {
         if (this.root != null) this.root.print(0);
         System.out.println();
     }
-
-
 
 }
