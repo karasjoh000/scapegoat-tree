@@ -1,26 +1,9 @@
 BuildTree 0.5, 24
-Insert 1
 Print
-Insert 2
+Search 24
+Delete 24
 Print
-Insert 12
+Search 24
+Delete 24
 Print
-Insert 15
-Print
-Insert 7
-Print
-Insert 16
-Print
-Insert 17
-Print
-Insert 18
-Print
-Insert 19
-Print
-Insert 20
-Print
-Insert 21
-Print
-Insert 22
-Print
-Done
+Search 24
