@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         Tree tree = null;
         String file;
-        if (args[0] != null)  file = args[0];
+        if (args.length >= 1) file = args[0];
         else file = "tree.txt";
         Scanner scan;
         try {
@@ -18,10 +18,10 @@ public class Main {
             return;
         }
         for (int line_num = 1; scan.hasNextLine(); line_num++) {
-            String[] next = scan.nextLine().split("\\s+");
+            String[] next = scan.nextLine().replaceAll(",", "").split("\\s+");
             switch (next[0]) {
                 case "BuildTree":
-                    tree = new Tree(Integer.parseInt(next[2]));
+                    tree = new Tree(Integer.parseInt(next[2]), Double.parseDouble(next[1]));
                     printResult(line_num, "Success: Tree built");
                     break;
                 case "Insert":
@@ -265,7 +265,7 @@ class Tree {
     private double alpha;
     private int maxSize;
 
-    Tree(int key) {
+    Tree(int key, double alpha) {
         this.root = new Node(key);
     }
 
