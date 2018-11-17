@@ -234,7 +234,7 @@ class Node {
                 }
                 //recalculate sizes, h_alphas and heights.
                 if (this.left != null) this.left.update(alpha);
-                else this.update(alpha);
+                else if (this.parent != null) this.parent.update(alpha);
             }
             /* if successor is found, replace with the successor */
             else {
@@ -374,7 +374,7 @@ class Tree {
         if (this.root == null) return false;
         if (!this.root.delete(key, this.alpha)) return false;
         if (this.root.key == key) this.root = null;
-        if (this.root != null && this.root.size < (this.maxSize * this.root.halpha)) {
+        if (this.root != null && this.root.size < (this.maxSize * this.alpha)) {
             this.root = rebuildTree(this.root.size, this.root);
             this.maxSize = this.root.size;
         }
