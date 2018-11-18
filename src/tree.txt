@@ -1,4 +1,4 @@
-BuildTree 0.5, 24
+BuildTree 0.6, 24
 Insert 1
 Print
 Insert 2
@@ -32,6 +32,8 @@ Print
 Search 18
 Delete 18
 Print
+Insert 8
+Print
 Delete 22
 Print
 Delete 1
@@ -41,6 +43,8 @@ Print
 Delete 12
 Print
 Delete 15
+Print
+Insert 100
 Print
 Delete 7
 Print
@@ -54,6 +58,17 @@ Delete 17
 Print
 Delete 17
 Print
+Insert 2
+Print
+Insert 3
+Print
+Insert 4
+Print
+Insert 5
+Print
 Insert 1
 Print
+Delete 1
+Print
+Delete 2
 Done

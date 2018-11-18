@@ -1,0 +1,4 @@
+BuildTree 0.6, 24
+Print
+Delete 24
+Print

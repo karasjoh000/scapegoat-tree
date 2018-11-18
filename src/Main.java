@@ -58,6 +58,7 @@ public class Main {
 
 }
 
+//checked
 class Result {
     private boolean exists;
     private int value;
@@ -87,16 +88,18 @@ class Node {
     int key;
     int height;
     int size;
-    int halpha;
+    int halpha; //4.4 Remarks, second bullet point.
     Node left;
     Node right;
     Node parent;
 
+    //Checked
     public Node(int key) {
         this.key = key;
         this.parent = this.left = this.right = null;
     }
 
+    //Checked.
     public Result search(int key) {
         if (this.key == key) return new Result(true, key);
         else if (this.key > key && this.left != null) return this.left.search(key);
@@ -104,37 +107,42 @@ class Node {
         else return new Result(false, 0);
     }
 
-
+    //CHECKED
     private void calcHeight() {
         /* if is a leaf, set height to 0. */
         if (this.right == null && this.left == null) this.height = 0;
         else {
             int righth = -1, lefth = -1;
+            /* determine the previous heights. */
             if (this.right != null) righth = this.right.height;
             if (this.left != null) lefth = this.left.height;
-            /* Compare if new height is more than previous one. */
-            if (lefth < righth) this.height = 1 + righth;
-            else this.height = 1 + lefth;
+            /* increment to the maximum height */
+            this.height = 1 + Math.max(lefth, righth);
         }
     }
 
+    //CHECKED
     //change of base log_a(b) = log(b) / log(a)
     private void calcHalpha(double alpha) {
         this.halpha = (int) Math.floor(Math.log((double) this.size) / Math.log(1.0 / alpha));
     }
 
+    //CHECKED
     private void calcSize() {
         this.size = 1;
         if (this.right != null) this.size += this.right.size;
         if (this.left != null) this.size += this.left.size;
     }
 
+    //CHECKED
+    //TODO make sure it is called everywhere where needed.
     public void updateNode(double alpha) {
         this.calcSize();
         this.calcHalpha(alpha);
         this.calcHeight();
     }
-
+    //CHECKED
+    //TODO make sure it is called everywhere where needed. --> checked all in class Node
     public void update(double alpha) {
         this.updateNode(alpha);
         if (this.parent != null) this.parent.update(alpha);
@@ -142,10 +150,12 @@ class Node {
 
 
 
-
-    //runs in O(log(n)) time
+    //CHECKED
+    // runs in O(log(n)) time
+    // starts looking from the root.
     public Node findScapeGoat(int key) {
         if (this.key != key) {
+            /* Inequality (4.6) */
             if (this.height > this.halpha) return this;
             if (this.key > key && this.left != null) return this.left.findScapeGoat(key);
             if (this.key < key && this.right != null) return this.right.findScapeGoat(key);
@@ -153,8 +163,9 @@ class Node {
         return null;
     }
 
+    //CHECKED
     // This function assumes that at least one node is in the tree.
-    // assume also that there are no duplicate keys.
+    // ignores duplicate keys.
     public int insert(Node newkey, double alpha, int count) {
         if (this.key < newkey.key) {
             if (this.right == null) {
@@ -177,9 +188,9 @@ class Node {
         }
     }
 
-    /*
-    Support function for delete(int key). Finds the successor of key (key of current node this).
-    return - Returns the successor node of key. If none found, null is returned.
+    //CHECKED.
+    /* Support function for delete(int key). Finds the successor of key (key of current node this).
+     * return - Returns the successor node of key. If none found, null is returned.
      */
     private Node extract_successor(double alpha) {
         /* indicator if current node is left or right child for its parent. */
@@ -192,7 +203,7 @@ class Node {
         Node iter = this.right;
         while (iter.left != null) iter = iter.left;
         /* Determine whether successor is left or right child of parent, then prepare fields to extract
-        * the successor. */
+         * the successor. */
         if (isRight) iter.parent.right = iter.right;
         else iter.parent.left = iter.right;
         /* check if right is null or not to setup parent and update fields */
@@ -204,11 +215,10 @@ class Node {
         return iter;
     }
 
-    /*
-    removes key from the tree.
-    int key - key to be removed
-    return - false if key is not found. true if found and deleted.
-     */
+    //CHECKED.
+    /* removes key from the tree.
+     * int key - key to be removed
+     * return - false if key is not found. true if found and deleted. */
     public boolean delete(int key, double alpha) {
         /* if key is found, remove it */
         if (this.key == key) {
@@ -222,7 +232,18 @@ class Node {
             if (successor == null) {
                 /* when parent doe not exist, set parent to null */
                 if (!parentExists) {
-                    if (this.left != null) this.left.parent = null;
+                    /* When parent is null, set left to tree root. Just change this attributes so Tree.root will be
+                     * pointing to the correct position. */
+                    if (this.left != null) {
+                        /* Make a temporary variable to keep it independent from pointer manipulations */
+                        Node left = this.left;
+                        this.key = left.key;
+                        this.left = left.left;
+                        this.right = left.right;
+                        this.size = left.size;
+                        this.height = left.height;
+                        this.halpha = left.halpha;
+                    }
                 }
                 /* determine where to put the left (right or left of parent) */
                 else if (isRight) {
@@ -233,9 +254,8 @@ class Node {
                     this.parent.left = this.left;
                     if (this.left != null) this.left.parent = this.parent;
                 }
-                //recalculate sizes, h_alphas and heights.
-                if (this.left != null) this.left.update(alpha);
-                else if (this.parent != null) this.parent.update(alpha);
+                /* recalculate sizes, h_alphas and heights. */
+                if (this.parent != null) this.parent.update(alpha);
             }
             /* if successor is found, replace with the successor */
             else {
@@ -267,6 +287,7 @@ class Tree {
     private double alpha;
     private int maxSize;
 
+    //CHECKED
     Tree(int key, double alpha) {
         this.alpha = alpha;
         this.root = new Node(key);
@@ -275,6 +296,7 @@ class Tree {
         this.maxSize = 1;
     }
 
+    //Checked.
     public void insert(int key) {
         /* create a new node that will store the new key */
         Node newkey = new Node(key);
@@ -285,21 +307,18 @@ class Tree {
         else {
             this.root = newkey;
             this.root.parent = this.root.left = this.root.right = null;
-            this.maxSize = 1;
             this.root.update(this.alpha);
         }
         /* check if the new node is a deep node. If a deep node, rebuild the tree. */
-        if(depth > this.root.halpha) {
+        if(depth > this.root.halpha) { // Lemma 5.1
             /* Find a scapegoat that is closest to root or is root (root is prioritized over all other nodes) */
             Node scapegoat = this.root.findScapeGoat(newkey.key);
             /* Record the parent of scapegoat to know where to insert the rebuilt tree */
-            Node scapegoat_parent = null;
-            /* Check if parent exists, if doesn't keep it null otherwise set to parent */
-            if (scapegoat.parent != null)  scapegoat_parent = scapegoat.parent;
+            Node scapegoat_parent = scapegoat.parent;
             /* Determine if scapegoat child is left or right of parent */
             boolean isRight = (scapegoat_parent != null && scapegoat_parent.right == scapegoat);
             /* Rebuild the tree using procedure in the scapegoat paper (Scapegoat Trees Chapter 19 Galperin and
-             * Rivest) */
+             * Rivest). This will rebuild the subtree rooted at the scapegoat (4.2 3rd paragraph). */
             Node balanced = rebuildTree(scapegoat.size, scapegoat);
             /* determine how to merge the balanced subtree (is it root or someones child) */
             if (scapegoat_parent != null) {
@@ -315,13 +334,14 @@ class Tree {
                 /* Make sure the roots parent is null and not pointing to the dummy variable w in rebuildTree */
                 this.root.parent = null;
             }
-            /* reset the maxsize to tree size */
+            /* reset the maxsize to tree size. Remark 4.4 first bullet point */
             this.maxSize = this.root.size;
         }
-        /* update maxsize */
+        /* update maxsize. 4.2 first paragraph. */
         else this.maxSize = Math.max(this.root.size, this.maxSize);
     }
 
+    //CHECKED.
     /* Node flatten(Node x, Node y)
      * Converts a subtree into a linked list, ordered from least to greatest with the right attribute pointing to the
      * next node. The dummy variable is attached to the head of the list (greatest node points to dummy variable) */
@@ -331,6 +351,8 @@ class Tree {
         return flatten(x.left, x);
     }
 
+    //TODO check this.
+    //CHECKED without checking pointers.
     /* Node buildTree(int n, Node x)
      * recursive function that builds a perfectly balanced subtree.
      * int n - size of the scapegoat subtree
@@ -342,13 +364,13 @@ class Tree {
             return x;
         }
         /* create subtrees */
-        Node r = this.buildTree((int) (Math.floor(((double) (n - 1)) / 2.0)), x);
-        Node s = this.buildTree((int) (Math.ceil(((double) (n - 1)) / 2.0)), r.right);
+        Node r = this.buildTree((int) (Math.ceil(((double) (n - 1)) / 2.0)), x);
+        Node s = this.buildTree((int) (Math.floor(((double) (n - 1)) / 2.0)), r.right);
         /* Merge r and s. r will not be touched anymore so it will be safe to set fields on it as will as
          * calculating height, size, and halphas. */
         r.right = s.left;
         s.left = r;
-        /* update parents */
+        /* update parents */ //TODO if time check this again to make sure pointers are in the correct spots.
         r.parent = s;
         if(r.right != null) r.right.parent = r;
         if(r.left != null) r.left.parent = r;
@@ -357,6 +379,7 @@ class Tree {
         return s;
     }
 
+    //CHECKED.
     /* Node rebuildTree(int n, Node scapegoat)
      * int n - size of the scapegoat tree.
      * Node scapegoat - root of the subtree to be rebuilt.
@@ -373,29 +396,35 @@ class Tree {
         return w.left;
     }
 
+    //CHECKED.
     public boolean delete(int key) {
         /* if tree is empty return false */
         if (this.root == null) return false;
         /* if key is not found, return false */
         if (!this.root.delete(key, this.alpha)) return false;
         /* if the deleted key is the root, set root to null (only is true when the last key is deleted. */
-        if (this.root.key == key) this.root = null;
-        /* check for the rebuild condition. */
+        if (this.root.key == key) {
+            this.root = null;
+            this.maxSize = 0;
+        }
+        /* check for the rebuild condition. Inequality 4.7 */
         if (this.root != null && this.root.size < (this.maxSize * this.alpha)) {
             this.root = rebuildTree(this.root.size, this.root);
             /* Get rid of the dummy pointer */
             this.root.parent = null;
-            /* reset maxsize */
+            /* reset maxsize. Remarks 4.4 second bullet point. */
             this.maxSize = this.root.size;
         }
         return true;
     }
 
+    //CHECKED
     public Result search(int key) {
         if (this.root != null) return this.root.search(key);
         else return new Result(false, -1);
     }
 
+    //CHECKED.
     public void print() {
         if (this.root != null) this.root.print(0);
         System.out.println();

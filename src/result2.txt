@@ -1,0 +1,350 @@
+[1] Success: Tree built
+[2] Success: Key inserted
+[3]
+
+	24
+		1
+[4] Success: Key inserted
+[5]
+
+	24
+			2
+		1
+[6] Success: Key inserted
+[7]
+
+		24
+	12
+		2
+			1
+[8] Success: Key inserted
+[9]
+
+		24
+			15
+	12
+		2
+			1
+[10] Success: Key inserted
+[11]
+
+		24
+			15
+	12
+			7
+		2
+			1
+[12] Success: Key inserted
+[13]
+
+		24
+				16
+			15
+	12
+			7
+		2
+			1
+[14] Success: Key inserted
+[15]
+
+		24
+					17
+				16
+			15
+	12
+			7
+		2
+			1
+[16] Success: Key inserted
+[17]
+
+			24
+		18
+			17
+				16
+	15
+			12
+		7
+			2
+				1
+[18] Success: Key inserted
+[19]
+
+			24
+				19
+		18
+			17
+				16
+	15
+			12
+		7
+			2
+				1
+[20] Success: Key inserted
+[21]
+
+			24
+					20
+				19
+		18
+			17
+				16
+	15
+			12
+		7
+			2
+				1
+[22] Success: Key inserted
+[23]
+
+			24
+				21
+		20
+			19
+				18
+	17
+			16
+				15
+		12
+				7
+			2
+				1
+[24] Success: Key inserted
+[25]
+
+			24
+					22
+				21
+		20
+			19
+				18
+	17
+			16
+				15
+		12
+				7
+			2
+				1
+[26] Success: key deleted
+[27]
+
+			24
+				22
+		20
+			19
+				18
+	17
+			16
+				15
+		12
+				7
+			2
+				1
+[28] Success: key deleted
+[29]
+
+			22
+		20
+			19
+				18
+	17
+			16
+				15
+		12
+				7
+			2
+				1
+[30] Success: key deleted
+[31]
+
+		20
+			19
+				18
+	17
+			16
+				15
+		12
+				7
+			2
+				1
+[32] Success: key found
+[33] Success: key deleted
+[34]
+
+		20
+			19
+	17
+			16
+				15
+		12
+				7
+			2
+				1
+[35] Success: Key inserted
+[36]
+
+		20
+			19
+	17
+			16
+				15
+		12
+					8
+				7
+			2
+				1
+[37] Error: Key not found
+[38]
+
+		20
+			19
+	17
+			16
+				15
+		12
+					8
+				7
+			2
+				1
+[39] Success: key deleted
+[40]
+
+		20
+			19
+	17
+			16
+				15
+		12
+					8
+				7
+			2
+[41] Success: key deleted
+[42]
+
+		20
+			19
+	17
+			16
+				15
+		12
+				8
+			7
+[43] Success: key deleted
+[44]
+
+			20
+		19
+			17
+	16
+			15
+		8
+			7
+[45] Success: key deleted
+[46]
+
+			20
+		19
+			17
+	16
+		8
+			7
+[47] Success: Key inserted
+[48]
+
+				100
+			20
+		19
+			17
+	16
+		8
+			7
+[49] Success: key deleted
+[50]
+
+				100
+			20
+		19
+			17
+	16
+		8
+[51] Success: key deleted
+[52]
+
+				100
+			20
+		19
+	17
+		8
+[53] Success: key deleted
+[54]
+
+		100
+	20
+		17
+			8
+[55] Success: key deleted
+[56]
+
+	100
+		17
+			8
+[57] Success: key deleted
+[58]
+
+	100
+		8
+[59] Error: Key not found
+[60]
+
+	100
+		8
+[61] Success: Key inserted
+[62]
+
+	100
+		8
+			2
+[63] Success: Key inserted
+[64]
+
+		100
+	8
+		3
+			2
+[65] Success: Key inserted
+[66]
+
+		100
+	8
+			4
+		3
+			2
+[67] Success: Key inserted
+[68]
+
+		100
+	8
+				5
+			4
+		3
+			2
+[69] Success: Key inserted
+[70]
+
+		100
+	8
+				5
+			4
+		3
+			2
+				1
+[71] Success: key deleted
+[72]
+
+		100
+	8
+				5
+			4
+		3
+			2
+[73] Success: key deleted
