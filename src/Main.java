@@ -8,7 +8,7 @@ public class Main {
         Tree tree = null;
         String file;
         if (args.length >= 1) file = args[0];
-        else file = "/Users/johnkarasev/IdeaProjects/scapegoat-tree/src/tree.txt";
+        else file = "/Users/johnkarasev/IdeaProjects/scapegoat-tree/src/tree2.txt";
         Scanner scan;
         try {
             scan = new Scanner(new File(file));
