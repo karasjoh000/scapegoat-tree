@@ -17,25 +17,32 @@ public class Main {
             return;
         }
         for (int line_num = 1; scan.hasNextLine(); line_num++) {
+            int key;
+            double alpha;
             String[] next = scan.nextLine().replaceAll(",", "").split("\\s+");
             switch (next[0]) { //TODO print the keys in success.
                 case "BuildTree":
-                    tree = new Tree(Integer.parseInt(next[2]), Double.parseDouble(next[1]));
-                    printResult(line_num, "Success: Tree built");
+                    key = Integer.parseInt(next[2]);
+                    alpha = Double.parseDouble(next[1]);
+                    tree = new Tree(key, alpha);
+                    printResult(line_num, "Success: Tree built with " + key + " key and " + alpha + " as alpha");
                     break;
                 case "Insert":
-                    tree.insert(Integer.parseInt(next[1]));
-                    printResult(line_num, "Success: Key inserted");
+                    key = Integer.parseInt(next[1]);
+                    tree.insert(key);
+                    printResult(line_num, "Success: " + key + " inserted");
                     break;
                 case "Search":
-                    Result res = tree.search(Integer.parseInt(next[1]));
-                    if (!res.exists()) printResult(line_num, "Error: key not found");
-                    else printResult(line_num, "Success: key found");
+                    key = Integer.parseInt(next[1]);
+                    Result res = tree.search(key);
+                    if (!res.exists()) printResult(line_num, "Error: " + key + " not found");
+                    else printResult(line_num, "Success: " + key + " found");
                     break;
                 case "Delete":
-                    boolean r = tree.delete(Integer.parseInt(next[1]));
-                    if(r) printResult(line_num, "Success: key deleted");
-                    else printResult(line_num, "Error: Key not found");
+                    key = Integer.parseInt(next[1]);
+                    boolean r = tree.delete(key);
+                    if(r) printResult(line_num, "Success: " + key + " deleted");
+                    else printResult(line_num, "Error: " + key + " not found");
                     break;
                 case "Print":
                     printResult(line_num, "");
@@ -207,11 +214,8 @@ class Node {
         if (isRight) iter.parent.right = iter.right;
         else iter.parent.left = iter.right;
         /* check if right is null or not to setup parent and update fields */
-        if (iter.right != null) {
-            iter.right.parent = iter.parent;
-            iter.right.update(alpha);
-        } else iter.parent.update(alpha);
-
+        if (iter.right != null) iter.right.parent = iter.parent;
+        iter.parent.update(alpha);
         return iter;
     }
 
@@ -351,8 +355,7 @@ class Tree {
         return flatten(x.left, x);
     }
 
-    //TODO check this.
-    //CHECKED without checking pointers.
+    //CHECKED
     /* Node buildTree(int n, Node x)
      * recursive function that builds a perfectly balanced subtree.
      * int n - size of the scapegoat subtree
@@ -370,7 +373,7 @@ class Tree {
          * calculating height, size, and halphas. */
         r.right = s.left;
         s.left = r;
-        /* update parents */ //TODO if time check this again to make sure pointers are in the correct spots.
+        /* update parents */
         r.parent = s;
         if(r.right != null) r.right.parent = r;
         if(r.left != null) r.left.parent = r;

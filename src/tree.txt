@@ -36,6 +36,7 @@ Insert 8
 Print
 Delete 22
 Print
+Search 22
 Delete 1
 Print
 Delete 2
@@ -71,4 +72,8 @@ Print
 Delete 1
 Print
 Delete 2
+Print
+Delete 2
+Print
+Search 2
 Done

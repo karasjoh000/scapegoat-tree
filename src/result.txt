@@ -1,23 +1,23 @@
-[1] Success: Tree built
-[2] Success: Key inserted
+[1] Success: Tree built with 24 key and 0.6 as alpha
+[2] Success: 1 inserted
 [3]
 
 	24
 		1
-[4] Success: Key inserted
+[4] Success: 2 inserted
 [5]
 
 	24
 			2
 		1
-[6] Success: Key inserted
+[6] Success: 12 inserted
 [7]
 
 		24
 	12
 		2
 			1
-[8] Success: Key inserted
+[8] Success: 15 inserted
 [9]
 
 		24
@@ -25,7 +25,7 @@
 	12
 		2
 			1
-[10] Success: Key inserted
+[10] Success: 7 inserted
 [11]
 
 		24
@@ -34,7 +34,7 @@
 			7
 		2
 			1
-[12] Success: Key inserted
+[12] Success: 16 inserted
 [13]
 
 		24
@@ -44,7 +44,7 @@
 			7
 		2
 			1
-[14] Success: Key inserted
+[14] Success: 17 inserted
 [15]
 
 		24
@@ -55,7 +55,7 @@
 			7
 		2
 			1
-[16] Success: Key inserted
+[16] Success: 18 inserted
 [17]
 
 			24
@@ -67,7 +67,7 @@
 		7
 			2
 				1
-[18] Success: Key inserted
+[18] Success: 19 inserted
 [19]
 
 			24
@@ -80,7 +80,7 @@
 		7
 			2
 				1
-[20] Success: Key inserted
+[20] Success: 20 inserted
 [21]
 
 			24
@@ -94,7 +94,7 @@
 		7
 			2
 				1
-[22] Success: Key inserted
+[22] Success: 21 inserted
 [23]
 
 			24
@@ -109,7 +109,7 @@
 				7
 			2
 				1
-[24] Success: Key inserted
+[24] Success: 22 inserted
 [25]
 
 			24
@@ -125,7 +125,7 @@
 				7
 			2
 				1
-[26] Success: key deleted
+[26] Success: 21 deleted
 [27]
 
 			24
@@ -140,7 +140,7 @@
 				7
 			2
 				1
-[28] Success: key deleted
+[28] Success: 24 deleted
 [29]
 
 			22
@@ -154,7 +154,7 @@
 				7
 			2
 				1
-[30] Success: key deleted
+[30] Success: 22 deleted
 [31]
 
 		20
@@ -167,8 +167,8 @@
 				7
 			2
 				1
-[32] Success: key found
-[33] Success: key deleted
+[32] Success: 18 found
+[33] Success: 18 deleted
 [34]
 
 		20
@@ -180,7 +180,7 @@
 				7
 			2
 				1
-[35] Success: Key inserted
+[35] Success: 8 inserted
 [36]
 
 		20
@@ -193,7 +193,7 @@
 				7
 			2
 				1
-[37] Error: Key not found
+[37] Error: 22 not found
 [38]
 
 		20
@@ -206,8 +206,9 @@
 				7
 			2
 				1
-[39] Success: key deleted
-[40]
+[39] Error: 22 not found
+[40] Success: 1 deleted
+[41]
 
 		20
 			19
@@ -218,8 +219,8 @@
 					8
 				7
 			2
-[41] Success: key deleted
-[42]
+[42] Success: 2 deleted
+[43]
 
 		20
 			19
@@ -229,8 +230,8 @@
 		12
 				8
 			7
-[43] Success: key deleted
-[44]
+[44] Success: 12 deleted
+[45]
 
 			20
 		19
@@ -239,8 +240,8 @@
 			15
 		8
 			7
-[45] Success: key deleted
-[46]
+[46] Success: 15 deleted
+[47]
 
 			20
 		19
@@ -248,8 +249,8 @@
 	16
 		8
 			7
-[47] Success: Key inserted
-[48]
+[48] Success: 100 inserted
+[49]
 
 				100
 			20
@@ -258,8 +259,8 @@
 	16
 		8
 			7
-[49] Success: key deleted
-[50]
+[50] Success: 7 deleted
+[51]
 
 				100
 			20
@@ -267,60 +268,60 @@
 			17
 	16
 		8
-[51] Success: key deleted
-[52]
+[52] Success: 16 deleted
+[53]
 
 				100
 			20
 		19
 	17
 		8
-[53] Success: key deleted
-[54]
+[54] Success: 19 deleted
+[55]
 
 		100
 	20
 		17
 			8
-[55] Success: key deleted
-[56]
+[56] Success: 20 deleted
+[57]
 
 	100
 		17
 			8
-[57] Success: key deleted
-[58]
+[58] Success: 17 deleted
+[59]
 
 	100
 		8
-[59] Error: Key not found
-[60]
+[60] Error: 17 not found
+[61]
 
 	100
 		8
-[61] Success: Key inserted
-[62]
+[62] Success: 2 inserted
+[63]
 
 	100
 		8
 			2
-[63] Success: Key inserted
-[64]
+[64] Success: 3 inserted
+[65]
 
 		100
 	8
 		3
 			2
-[65] Success: Key inserted
-[66]
+[66] Success: 4 inserted
+[67]
 
 		100
 	8
 			4
 		3
 			2
-[67] Success: Key inserted
-[68]
+[68] Success: 5 inserted
+[69]
 
 		100
 	8
@@ -328,8 +329,8 @@
 			4
 		3
 			2
-[69] Success: Key inserted
-[70]
+[70] Success: 1 inserted
+[71]
 
 		100
 	8
@@ -338,8 +339,8 @@
 		3
 			2
 				1
-[71] Success: key deleted
-[72]
+[72] Success: 1 deleted
+[73]
 
 		100
 	8
@@ -347,4 +348,20 @@
 			4
 		3
 			2
-[73] Success: key deleted
+[74] Success: 2 deleted
+[75]
+
+		100
+	8
+				5
+			4
+		3
+[76] Error: 2 not found
+[77]
+
+		100
+	8
+				5
+			4
+		3
+[78] Error: 2 not found
