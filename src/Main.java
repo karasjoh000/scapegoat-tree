@@ -1,14 +1,18 @@
+/* Author John Karasev Copyright 2018*/
+
 import java.io.File;
 import java.util.Scanner;
 
 
 public class Main {
 
+    /*Main function that reads through the file and executes commands. */
     public static void main(String[] args) {
         Tree tree = null;
         String file;
+        /* Determine if file is specified in directory or in args. */
         if (args.length >= 1) file = args[0];
-        else file = "/Users/johnkarasev/IdeaProjects/scapegoat-tree/src/tree2.txt";
+        else file = "./tree.txt";
         Scanner scan;
         try {
             scan = new Scanner(new File(file));
@@ -16,11 +20,12 @@ public class Main {
             System.out.println("Error" + e);
             return;
         }
+        /* For each line in file, parse them and check what command to execute. */
         for (int line_num = 1; scan.hasNextLine(); line_num++) {
             int key;
             double alpha;
             String[] next = scan.nextLine().replaceAll(",", "").split("\\s+");
-            switch (next[0]) { //TODO print the keys in success.
+            switch (next[0]) {
                 case "BuildTree":
                     key = Integer.parseInt(next[2]);
                     alpha = Double.parseDouble(next[1]);
@@ -65,7 +70,7 @@ public class Main {
 
 }
 
-//checked
+/* Just stores the result and has a flag if result exists. Used in the search method of tree. */
 class Result {
     private boolean exists;
     private int value;
@@ -90,23 +95,24 @@ class Result {
     }
 }
 
+/* Represents a single node in the scapegoat tree. */
 class Node {
 
-    int key;
-    int height;
-    int size;
+    int key; // The value at the node
+    int height; //height of the node.
+    int size; // number of nodes of subtree rooted at this
     int halpha; //4.4 Remarks, second bullet point.
-    Node left;
-    Node right;
-    Node parent;
+    Node left; // left child of node
+    Node right; //right child of node
+    Node parent; //parent of node
 
-    //Checked
+
     public Node(int key) {
         this.key = key;
         this.parent = this.left = this.right = null;
     }
 
-    //Checked.
+    /* Searches for a key. Returns Result that specifies if found or not found. */
     public Result search(int key) {
         if (this.key == key) return new Result(true, key);
         else if (this.key > key && this.left != null) return this.left.search(key);
@@ -114,7 +120,7 @@ class Node {
         else return new Result(false, 0);
     }
 
-    //CHECKED
+    /* calculates the height of this. Runs in O(1) time. */
     private void calcHeight() {
         /* if is a leaf, set height to 0. */
         if (this.right == null && this.left == null) this.height = 0;
@@ -128,28 +134,27 @@ class Node {
         }
     }
 
-    //CHECKED
+    /* calculates the alpha height of a node. */
     //change of base log_a(b) = log(b) / log(a)
     private void calcHalpha(double alpha) {
         this.halpha = (int) Math.floor(Math.log((double) this.size) / Math.log(1.0 / alpha));
     }
 
-    //CHECKED
+    /* counts the number of nodes in the subtree rooted at this*/
     private void calcSize() {
         this.size = 1;
         if (this.right != null) this.size += this.right.size;
         if (this.left != null) this.size += this.left.size;
     }
 
-    //CHECKED
-    //TODO make sure it is called everywhere where needed.
+    /* Performs the tree operations above */
     public void updateNode(double alpha) {
         this.calcSize();
         this.calcHalpha(alpha);
         this.calcHeight();
     }
-    //CHECKED
-    //TODO make sure it is called everywhere where needed. --> checked all in class Node
+
+    /* Updates node attributes all the way up to parent. Runs in O(log(n)) time, so does not harm the performance. */
     public void update(double alpha) {
         this.updateNode(alpha);
         if (this.parent != null) this.parent.update(alpha);
@@ -157,7 +162,8 @@ class Node {
 
 
 
-    //CHECKED
+    /* finds the scapegoat */
+    // it can be shown that scapegoat will always be the root if searched from the top.
     // runs in O(log(n)) time
     // starts looking from the root.
     public Node findScapeGoat(int key) {
@@ -170,9 +176,7 @@ class Node {
         return null;
     }
 
-    //CHECKED
-    // This function assumes that at least one node is in the tree.
-    // ignores duplicate keys.
+    /* Inserts a new node into the tree. Ignore duplicates. count keeps track of the depth. */
     public int insert(Node newkey, double alpha, int count) {
         if (this.key < newkey.key) {
             if (this.right == null) {
@@ -276,6 +280,7 @@ class Node {
         else return false;
     }
 
+    /* Provided in the assignment description */
     public void print(int level) {
         if (this.right != null) this.right.print(level + 1);
         System.out.println();
@@ -286,12 +291,12 @@ class Node {
     }
 }
 
+/* points to the root of the subtree. */
 class Tree {
-    private Node root;
-    private double alpha;
-    private int maxSize;
+    private Node root; // root of the tree
+    private double alpha; // see scapegoat spec
+    private int maxSize; // see scapegoat spec
 
-    //CHECKED
     Tree(int key, double alpha) {
         this.alpha = alpha;
         this.root = new Node(key);
@@ -382,7 +387,7 @@ class Tree {
         return s;
     }
 
-    //CHECKED.
+
     /* Node rebuildTree(int n, Node scapegoat)
      * int n - size of the scapegoat tree.
      * Node scapegoat - root of the subtree to be rebuilt.
@@ -399,7 +404,7 @@ class Tree {
         return w.left;
     }
 
-    //CHECKED.
+    /* deletes node from tree, rebuilds if necessary */
     public boolean delete(int key) {
         /* if tree is empty return false */
         if (this.root == null) return false;
@@ -421,13 +426,14 @@ class Tree {
         return true;
     }
 
-    //CHECKED
+    /* Searches for a node, if found returns Result with the key and exist flag set to true. Otherwise exists flag is
+    * set to false. */
     public Result search(int key) {
         if (this.root != null) return this.root.search(key);
         else return new Result(false, -1);
     }
 
-    //CHECKED.
+    /* Prints the tree. */
     public void print() {
         if (this.root != null) this.root.print(0);
         System.out.println();

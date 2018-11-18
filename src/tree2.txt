@@ -1,4 +1,9 @@
 BuildTree 0.9, 24
+Delete 24
+Print
+Search 24
+Delete 24
+Print
 Insert 1
 Print
 Insert 2
